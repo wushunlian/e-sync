@@ -20,8 +20,11 @@ import java.util.Map;
 
 import org.jtester.annotations.SpringApplicationContext;
 import org.jtester.core.TestedObject;
+import org.jtester.hamcrest.WantStyleAssertion;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 
 import com.alibaba.otter.shared.arbitrate.impl.setl.ArbitrateFactory;
@@ -31,9 +34,10 @@ import com.alibaba.otter.shared.common.utils.TestUtils;
  * @author jianghang 2011-9-16 下午02:58:37
  * @version 4.0.0
  */
-@SpringApplicationContext("applicationContext.xml")
-public class BaseOtterTest extends org.jtester.testng.JTester {
-
+@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
+public class BaseOtterTest extends AbstractTestNGSpringContextTests {
+	protected final WantStyleAssertion want = new WantStyleAssertion();
+	
     @BeforeMethod
     public void setUp() {
         try {

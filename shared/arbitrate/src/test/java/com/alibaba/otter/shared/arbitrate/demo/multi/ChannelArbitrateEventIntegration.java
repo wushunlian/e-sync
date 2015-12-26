@@ -19,9 +19,10 @@ package com.alibaba.otter.shared.arbitrate.demo.multi;
 import java.util.Arrays;
 
 import mockit.Mock;
-import mockit.Mockit;
+
 
 import org.jtester.annotations.SpringBeanByName;
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -55,7 +56,7 @@ public class ChannelArbitrateEventIntegration extends BaseEventTest {
     public void init() {
         // 初始化节点
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Pipeline getPipeline(Long pipelineId) {
@@ -99,7 +100,7 @@ public class ChannelArbitrateEventIntegration extends BaseEventTest {
                 return pipeline;
             }
 
-        });
+        };
 
         zookeeper = getZookeeper();
     }

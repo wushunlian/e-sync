@@ -17,8 +17,8 @@
 package com.alibaba.otter.shared.arbitrate.setl.lb;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.Test;
 
 import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigUtils;
@@ -38,7 +38,7 @@ public class RoundRobinBalanceTest extends BaseLoadBalanceTest {
     @Test
     public void testExtract() {
         // 初始化节点
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Pipeline getPipeline(Long pipelineId) {
@@ -50,7 +50,7 @@ public class RoundRobinBalanceTest extends BaseLoadBalanceTest {
                 return pipeline;
             }
 
-        });
+        };
 
         ExtractRoundRobinLoadBalance extract = new ExtractRoundRobinLoadBalance(pipelineId);
         extract.setNodeMonitor(nodeMonitor);
@@ -73,7 +73,7 @@ public class RoundRobinBalanceTest extends BaseLoadBalanceTest {
     @Test
     public void testTransform() {
         // 初始化节点
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Pipeline getPipeline(Long pipelineId) {
@@ -85,7 +85,7 @@ public class RoundRobinBalanceTest extends BaseLoadBalanceTest {
                 return pipeline;
             }
 
-        });
+        };
 
         TransformRoundRobinLoadBalance transform = new TransformRoundRobinLoadBalance(pipelineId);
         transform.setNodeMonitor(nodeMonitor);

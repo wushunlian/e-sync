@@ -6,9 +6,9 @@
 	    <version>7</version>
 	</parent>
 	<groupId>com.alibaba.otter</groupId>
-	<artifactId>otter</artifactId>
+	<artifactId>e-sync</artifactId>
 	<packaging>pom</packaging>
-	<name>otter</name>
+	<name>e-sync</name>
 	<version>4.2.13-SNAPSHOT</version>
 	<inceptionYear>2011</inceptionYear>
 	<url>http://github.com/alibaba/otter</url>
@@ -45,13 +45,7 @@
 		</license>
 	</licenses>
 
-	<scm>
-    <url>git@github.com:alibaba/otter.git</url>
-    <connection>scm:git:git@github.com:alibaba/otter.git</connection>
-    <developerConnection>scm:git:git@github.com:alibaba/otter.git</developerConnection>
-	</scm>
-
-	<repositories>
+	<!--repositories>
 		<repository>
 			<id>central</id>
 			<url>http://repo1.maven.org/maven2</url>
@@ -105,7 +99,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories-->
 
 	<properties>
 		<!--maven properties-->
@@ -309,6 +303,12 @@
 				<version>4.5</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+	          <groupId>org.jmockit</groupId>
+	          <artifactId>jmockit</artifactId>
+	          <version>1.20</version>
+	          <scope>test</scope>
+              </dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -399,16 +399,5 @@
         </testResources>
 	</build>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Nexus Release Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+	
 </project>

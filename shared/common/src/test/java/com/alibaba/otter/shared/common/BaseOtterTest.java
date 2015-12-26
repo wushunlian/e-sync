@@ -16,12 +16,15 @@
 
 package com.alibaba.otter.shared.common;
 
-import org.jtester.annotations.SpringApplicationContext;
+import org.jtester.hamcrest.WantStyleAssertion;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 /**
  * @author jianghang 2010-6-2 上午11:48:00
  */
-@SpringApplicationContext("applicationContext.xml")
-public class BaseOtterTest extends org.jtester.testng.JTester {
-
+/**@SpringApplicationContext("classpath:applicationContext.xml")*/
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+public class BaseOtterTest extends AbstractTestNGSpringContextTests {
+	protected final WantStyleAssertion want = new WantStyleAssertion();
 }

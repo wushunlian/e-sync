@@ -20,8 +20,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -85,7 +86,7 @@ public class ArbitrateOppositeIntegration extends BaseEventTest {
     @BeforeMethod
     public void setUp() {
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannelByChannelId(Long channelId) {
@@ -144,16 +145,16 @@ public class ArbitrateOppositeIntegration extends BaseEventTest {
                 return channel;
             }
 
-        });
+        };
 
-        Mockit.setUpMock(ArbitrateCommmunicationClient.class, new Object() {
+        new MockUp<ArbitrateCommmunicationClient>() {
 
             @Mock
             public Object callManager(final Event event) {
                 // do nothing
                 return null;
             }
-        });
+        };
 
         zookeeper = getZookeeper();
 

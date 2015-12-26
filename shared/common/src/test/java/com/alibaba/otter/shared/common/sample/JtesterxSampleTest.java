@@ -17,6 +17,7 @@
 package com.alibaba.otter.shared.common.sample;
 
 import mockit.Mocked;
+import mockit.NonStrictExpectations;
 import mockit.Verifications;
 
 import org.jtester.annotations.SpringBeanByName;

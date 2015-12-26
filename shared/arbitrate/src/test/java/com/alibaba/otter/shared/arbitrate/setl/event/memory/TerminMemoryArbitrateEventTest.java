@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.Test;
 
 import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigUtils;
@@ -123,7 +123,7 @@ public class TerminMemoryArbitrateEventTest extends BaseArbitrateEventTest {
     }
 
     private void normalProcess() {
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public int getParallelism(Long pipelineId) {
@@ -135,7 +135,7 @@ public class TerminMemoryArbitrateEventTest extends BaseArbitrateEventTest {
                 return nid;
             }
 
-        });
+        };
 
         selectEvent = new SelectMemoryArbitrateEvent();
         extractEvent = new ExtractMemoryArbitrateEvent();

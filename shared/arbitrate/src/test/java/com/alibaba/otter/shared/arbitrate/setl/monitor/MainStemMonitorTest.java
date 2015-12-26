@@ -19,12 +19,12 @@ package com.alibaba.otter.shared.arbitrate.setl.monitor;
 import java.util.Arrays;
 
 import mockit.Mock;
-import mockit.Mockit;
 
 import org.I0Itec.zkclient.exception.ZkBadVersionException;
 import org.I0Itec.zkclient.exception.ZkException;
 import org.I0Itec.zkclient.exception.ZkNoNodeException;
 import org.apache.zookeeper.data.Stat;
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -60,7 +60,7 @@ public class MainStemMonitorTest extends BaseEventTest {
     @BeforeClass
     public void init() {
         // 初始化节点
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+        new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannel(Long pipelineId) {
@@ -93,7 +93,7 @@ public class MainStemMonitorTest extends BaseEventTest {
             public Long getCurrentNid() {
                 return nid;
             }
-        });
+        };
 
         zookeeper = getZookeeper();
         local.setId(nid);

@@ -21,9 +21,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import mockit.Mock;
-import mockit.Mockit;
+
 
 import org.apache.zookeeper.CreateMode;
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -63,7 +64,7 @@ public class PermitMonitorTest extends BaseEventTest {
     @BeforeClass
     public void init() {
         // 初始化节点
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannel(Long pipelineId) {
@@ -79,7 +80,7 @@ public class PermitMonitorTest extends BaseEventTest {
                 return pipeline;
             }
 
-        });
+        };
 
         zookeeper = getZookeeper();
         channelEvent = new ChannelArbitrateEvent();

@@ -2,12 +2,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 	    <groupId>com.alibaba.otter</groupId>
-	    <artifactId>otter</artifactId>
+	    <artifactId>e-sync</artifactId>
 	    <version>4.2.13-SNAPSHOT</version>
 	</parent>
-	<groupId>com.alibaba.otter</groupId>
 	<artifactId>shared</artifactId>
-	<version>4.2.13-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>shared module for otter</name>
 	<url>http://github.com/alibaba/otter</url>
@@ -80,6 +78,9 @@
 				<version>1.1.8</version>
 				<scope>provided</scope>
 			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
+	<groupId>com.alibaba.otter</groupId>
+	<version>4.2.13-SNAPSHOT</version>
 </project>

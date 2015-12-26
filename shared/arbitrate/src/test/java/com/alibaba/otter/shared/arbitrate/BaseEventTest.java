@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import mockit.Mock;
-import mockit.Mockit;
+import mockit.MockUp;
 
 import org.testng.annotations.BeforeClass;
 
@@ -37,14 +37,14 @@ public class BaseEventTest extends BaseOtterTest {
     public ZkClientx getZookeeper() {
         // ReflectionUtils.setField(zookeeperField, new ZooKeeperClient(),
         // null);
-        Mockit.setUpMock(ZooKeeperClient.class, new Object() {
+         new MockUp<ZooKeeperClient>() {
 
             @Mock
             private List<String> getServerAddrs() {
                 return Arrays.asList(cluster1, cluster2);
             }
 
-        });
+        };
 
         return ZooKeeperClient.getInstance();
     }

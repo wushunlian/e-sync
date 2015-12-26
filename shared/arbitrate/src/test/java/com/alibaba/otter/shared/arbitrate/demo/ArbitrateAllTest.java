@@ -19,7 +19,7 @@ package com.alibaba.otter.shared.arbitrate.demo;
 import java.util.Arrays;
 
 import mockit.Mock;
-import mockit.Mockit;
+import mockit.MockUp;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -94,7 +94,7 @@ public class ArbitrateAllTest extends BaseEventTest {
     @BeforeMethod
     public void setUp() {
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+         new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannelByChannelId(Long channelId) {
@@ -147,16 +147,16 @@ public class ArbitrateAllTest extends BaseEventTest {
                 return channel;
             }
 
-        });
+        };
 
-        Mockit.setUpMock(ArbitrateCommmunicationClient.class, new Object() {
+         new MockUp<ArbitrateCommmunicationClient>() {
 
             @Mock
             public Object callManager(final Event event) {
                 // do nothing
                 return null;
             }
-        });
+        };
 
         zookeeper = getZookeeper();
 

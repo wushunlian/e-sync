@@ -17,9 +17,9 @@
 package com.alibaba.otter.shared.arbitrate.setl.monitor;
 
 import mockit.Mock;
-import mockit.Mockit;
 
 import org.apache.zookeeper.CreateMode;
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -58,7 +58,7 @@ public class TerminMonitorTest extends BaseEventTest {
     public void init() {
         // 初始化节点
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannel(Long pipelineId) {
@@ -74,7 +74,7 @@ public class TerminMonitorTest extends BaseEventTest {
                 return pipeline;
             }
 
-        });
+        };
 
         zookeeper = getZookeeper();
         channelEvent = new ChannelArbitrateEvent();

@@ -19,8 +19,8 @@ package com.alibaba.otter.shared.arbitrate.setl.event;
 import java.util.Arrays;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -59,7 +59,7 @@ public class MainStemArbitrateEventTest extends BaseEventTest {
     public void init() {
         // 初始化节点
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannel(Long pipelineId) {
@@ -93,7 +93,7 @@ public class MainStemArbitrateEventTest extends BaseEventTest {
                 return nid;
             }
 
-        });
+        };
 
         getZookeeper();
         local.setId(nid);

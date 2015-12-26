@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.Test;
 
 import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigUtils;
@@ -52,14 +52,14 @@ public class RpcArbitrateEventTest extends BaseArbitrateEventTest {
 
     @Test
     public void test_all() {
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public int getParallelism(Long pipelineId) {
                 return 2;// 并行度
             }
 
-        });
+        };
 
         RpcStageEventDispatcher rpcStageEventDispatcher = (RpcStageEventDispatcher) this.getBeanFactory().getBean("rpcStageEventDispatcher");
         terminEvent = (TerminRpcArbitrateEvent) this.getBeanFactory().getBean("terminRpcEvent");

@@ -19,9 +19,6 @@ package com.alibaba.otter.shared.arbitrate.demo.multi;
 import java.io.IOException;
 import java.util.Arrays;
 
-import mockit.Mock;
-import mockit.Mockit;
-
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,6 +48,9 @@ import com.alibaba.otter.shared.common.model.config.node.Node;
 import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
 import com.alibaba.otter.shared.common.utils.zookeeper.ZkClientx;
 import com.alibaba.otter.shared.communication.core.model.Event;
+
+import mockit.Mock;
+import mockit.MockUp;
 
 /**
  * demo的启动入口
@@ -85,7 +85,7 @@ public class ArbitrateForwardIntegration extends BaseEventTest {
     @BeforeMethod
     public void setUp() {
         // mock 配置信息数据
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannelByChannelId(Long channelId) {
@@ -144,16 +144,16 @@ public class ArbitrateForwardIntegration extends BaseEventTest {
                 return channel;
             }
 
-        });
+        };
 
-        Mockit.setUpMock(ArbitrateCommmunicationClient.class, new Object() {
+        new MockUp<ArbitrateCommmunicationClient>() {
 
             @Mock
             public Object callManager(final Event event) {
                 // do nothing
                 return null;
             }
-        });
+        };
 
         zookeeper = getZookeeper();
 

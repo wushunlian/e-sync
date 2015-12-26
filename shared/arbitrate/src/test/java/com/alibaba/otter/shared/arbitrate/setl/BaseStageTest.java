@@ -20,10 +20,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 import mockit.Mock;
-import mockit.Mockit;
+
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.zookeeper.CreateMode;
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -77,7 +78,7 @@ public class BaseStageTest extends BaseEventTest {
         // 初始化节点
         // mock 配置信息数据
         local.setStatus(NodeStatus.START);
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+        new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public Channel getChannelByChannelId(Long channelId) {
@@ -129,9 +130,9 @@ public class BaseStageTest extends BaseEventTest {
                 return 3;// 并行度
             }
 
-        });
+        };
 
-        Mockit.setUpMock(ArbitrateCommmunicationClient.class, new Object() {
+        new MockUp<ArbitrateCommmunicationClient>() {
 
             @Mock
             public Object callManager(final Event event) {
@@ -143,7 +144,7 @@ public class BaseStageTest extends BaseEventTest {
             public void callManager(final Event event, final Callback callback) {
                 // do nothing
             }
-        });
+        };
 
         zookeeper = getZookeeper();
         local.setId(nid);

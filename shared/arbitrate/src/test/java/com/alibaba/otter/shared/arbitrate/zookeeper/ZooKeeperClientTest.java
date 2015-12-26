@@ -25,7 +25,6 @@ import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
 import mockit.Mock;
-import mockit.Mockit;
 
 import org.apache.zookeeper.ClientCnxn;
 import org.apache.zookeeper.KeeperException;
@@ -35,6 +34,7 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.client.HostProvider;
 import org.apache.zookeeper.client.StaticHostProvider;
 import org.apache.zookeeper.data.Stat;
+import org.jtester.core.IJTester.MockUp;
 import org.springframework.util.ReflectionUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -74,24 +74,24 @@ public class ZooKeeperClientTest extends BaseOtterTest {
         String data = String.format(Locale.ENGLISH, "%010d", "268171150");
         System.out.println(data);
 
-        Mockit.setUpMock(ZooKeeperClient.class, new Object() {
+        new MockUp<ZooKeeperClient>() {
 
             @Mock
             private List<String> getServerAddrs() {
                 return Arrays.asList(cluster1, cluster2);
             }
 
-        });
+        };
 
         // 初始化节点
-        Mockit.setUpMock(NodeSessionExpired.class, new Object() {
+        new MockUp<NodeSessionExpired>() {
 
             @Mock
             public void notification() {
                 return;
             }
 
-        });
+        };
     }
 
     @Test

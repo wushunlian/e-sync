@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mockit.Mock;
-import mockit.Mockit;
 
+import org.jtester.core.IJTester.MockUp;
 import org.testng.annotations.Test;
 
 import com.alibaba.otter.shared.arbitrate.impl.ArbitrateConstants;
@@ -43,14 +43,14 @@ public class ExtractArbitrateEventTest extends BaseArbitrateEventTest {
 
     @Test
     public void test_extract() {
-        Mockit.setUpMock(ArbitrateConfigUtils.class, new Object() {
+    	new MockUp<ArbitrateConfigUtils>() {
 
             @Mock
             public int getParallelism(Long pipelineId) {
                 return 2;//并行度
             }
 
-        });
+        };
         selectEvent = new SelectZooKeeperArbitrateEvent();
         extractEvent = new ExtractZooKeeperArbitrateEvent();
 
