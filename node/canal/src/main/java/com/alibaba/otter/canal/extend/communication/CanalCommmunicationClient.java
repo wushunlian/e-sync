@@ -26,6 +26,7 @@ import org.springframework.beans.factory.DisposableBean;
 import com.alibaba.otter.shared.communication.core.CommunicationClient;
 import com.alibaba.otter.shared.communication.core.exception.CommunicationException;
 import com.alibaba.otter.shared.communication.core.impl.DefaultCommunicationClientImpl;
+import com.alibaba.otter.shared.communication.core.impl.InternalCommunicationClientImpl;
 import com.alibaba.otter.shared.communication.core.model.Callback;
 import com.alibaba.otter.shared.communication.core.model.Event;
 
@@ -72,6 +73,14 @@ public class CanalCommmunicationClient implements DisposableBean {
     public void callManager(final Event event, final Callback callback) {
         if (delegate instanceof DefaultCommunicationClientImpl) {
             ((DefaultCommunicationClientImpl) delegate).submit(new Runnable() {
+
+                public void run() {
+                    Object obj = callManager(event);
+                    callback.call(obj);
+                }
+            });
+        }else if (delegate instanceof InternalCommunicationClientImpl) {
+            ((InternalCommunicationClientImpl) delegate).submit(new Runnable() {
 
                 public void run() {
                     Object obj = callManager(event);

@@ -17,7 +17,6 @@
 		<module>etl</module>
 		<module>canal</module>
 		<module>extend</module>
-		<module>deployer</module>
 	</modules>
 	
 	<dependencyManagement>
@@ -32,27 +31,7 @@
 			  <artifactId>commons-compress</artifactId>
 			  <version>1.4.1</version>
 			</dependency>
-			<!-- jetty -->
-			<dependency>
-			  <groupId>org.eclipse.jetty</groupId>
-			  <artifactId>jetty-servlet</artifactId>
-			  <version>${jetty_verion}</version>
-			</dependency>
-			<dependency>
-			  <groupId>org.eclipse.jetty</groupId>
-			  <artifactId>jetty-xml</artifactId>
-			  <version>${jetty_verion}</version>
-			</dependency>
-			<dependency>
-			  <groupId>org.eclipse.jetty</groupId>
-			  <artifactId>jetty-server</artifactId>
-			  <version>${jetty_verion}</version>
-			</dependency>
-			<dependency>
-			  <groupId>org.eclipse.jetty</groupId>
-			  <artifactId>jetty-http</artifactId>
-			  <version>${jetty_verion}</version>
-			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 </project>

@@ -26,8 +26,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.alibaba.otter.node.common.communication.NodeCommmunicationClient;
 import com.alibaba.otter.node.common.config.ConfigClientService;
-import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfig;
-import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigRegistry;
+
 import com.alibaba.otter.shared.common.model.config.ConfigException;
 import com.alibaba.otter.shared.common.model.config.channel.Channel;
 import com.alibaba.otter.shared.common.model.config.node.Node;
@@ -44,7 +43,7 @@ import com.google.common.collect.MapMaker;
  * 
  * @author jianghang
  */
-public class ConfigClientServiceImpl implements InternalConfigClientService, ArbitrateConfig, InitializingBean {
+public class ConfigClientServiceImpl implements InternalConfigClientService, InitializingBean {
 
     private static final String                NID_NAME       = "nid";
     private static final Long                  DEFAULT_PERIOD = 60 * 1000L;
@@ -59,7 +58,7 @@ public class ConfigClientServiceImpl implements InternalConfigClientService, Arb
 
     public ConfigClientServiceImpl(){
         // 注册一下事件处理
-        ArbitrateConfigRegistry.regist(this);
+        //ArbitrateConfigRegistry.regist(this);
     }
 
     public Node currentNode() {

@@ -21,7 +21,6 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.alibaba.otter.node.common.config.ConfigClientService;
 import com.alibaba.otter.shared.communication.core.CommunicationEndpoint;
-import com.alibaba.otter.shared.communication.core.impl.dubbo.DubboCommunicationEndpoint;
 import com.alibaba.otter.shared.communication.core.impl.rmi.RmiCommunicationEndpoint;
 
 /**
@@ -44,10 +43,6 @@ public class NodeCommunicationEndpoint implements InitializingBean, DisposableBe
             rmiEndpoint.setPort(port.intValue());
         }
 
-        if (endpoint instanceof DubboCommunicationEndpoint) {
-            DubboCommunicationEndpoint dubboEndpoint = (DubboCommunicationEndpoint) endpoint;
-            dubboEndpoint.setPort(port.intValue());
-        }
         endpoint.initial();
     }
 

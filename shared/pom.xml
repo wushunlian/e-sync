@@ -9,7 +9,8 @@
 	<packaging>pom</packaging>
 	<name>shared module for otter</name>
 	<url>http://github.com/alibaba/otter</url>
-	
+	<groupId>com.alibaba.otter</groupId>
+	<version>4.2.13-SNAPSHOT</version>
 	<modules>	
 		<module>arbitrate</module>
 		<module>common</module>
@@ -25,6 +26,7 @@
 				<artifactId>oro</artifactId>
 				<version>2.0.8</version>
 			</dependency>
+			
 			<dependency>
 				<groupId>org.apache.ddlutils</groupId>
 				<artifactId>ddlutils</artifactId>
@@ -60,27 +62,11 @@
 				  </exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>dubbo</artifactId>
-				<version>2.5.3</version>
-				<exclusions>
-				  <exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				  </exclusion>
-				</exclusions>
-			</dependency>
+			
 			<!-- test dependency -->
-			<dependency>
-				<groupId>org.jtester</groupId>
-				<artifactId>jtester</artifactId>
-				<version>1.1.8</version>
-				<scope>provided</scope>
-			</dependency>
+			
 			
 		</dependencies>
 	</dependencyManagement>
-	<groupId>com.alibaba.otter</groupId>
-	<version>4.2.13-SNAPSHOT</version>
+	
 </project>

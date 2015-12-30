@@ -29,6 +29,7 @@ import com.alibaba.otter.shared.common.model.config.node.Node;
 import com.alibaba.otter.shared.communication.core.CommunicationClient;
 import com.alibaba.otter.shared.communication.core.exception.CommunicationException;
 import com.alibaba.otter.shared.communication.core.impl.DefaultCommunicationClientImpl;
+import com.alibaba.otter.shared.communication.core.impl.InternalCommunicationClientImpl;
 import com.alibaba.otter.shared.communication.core.model.Callback;
 import com.alibaba.otter.shared.communication.core.model.Event;
 
@@ -99,6 +100,14 @@ public class ArbitrateCommmunicationClient {
                 public void run() {
                     Object result = callManager(event);
                     callback.call(result);
+                }
+            });
+        }else if (delegate instanceof InternalCommunicationClientImpl) {
+            ((InternalCommunicationClientImpl) delegate).submit(new Runnable() {
+
+                public void run() {
+                    Object obj = callManager(event);
+                    callback.call(obj);
                 }
             });
         }

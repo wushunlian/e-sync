@@ -31,9 +31,6 @@ import com.alibaba.otter.node.common.config.ConfigClientService;
 import com.alibaba.otter.node.etl.OtterConstants;
 import com.alibaba.otter.node.etl.common.pipe.PipeKey;
 import com.alibaba.otter.node.etl.common.pipe.exception.PipeException;
-import com.alibaba.otter.node.etl.common.pipe.impl.http.AttachmentHttpPipe;
-import com.alibaba.otter.node.etl.common.pipe.impl.http.HttpPipeKey;
-import com.alibaba.otter.node.etl.common.pipe.impl.http.RowDataHttpPipe;
 import com.alibaba.otter.node.etl.common.pipe.impl.memory.MemoryPipeKey;
 import com.alibaba.otter.node.etl.common.pipe.impl.memory.RowDataMemoryPipe;
 import com.alibaba.otter.node.etl.common.pipe.impl.rpc.RowDataRpcPipe;
@@ -52,8 +49,6 @@ import com.alibaba.otter.shared.etl.model.EventData;
 public class RowDataPipeDelegate {
 
     private RowDataMemoryPipe   rowDataMemoryPipe;
-    private AttachmentHttpPipe  attachmentHttpPipe;
-    private RowDataHttpPipe     rowDataHttpPipe;
     private RowDataRpcPipe      rowDataRpcPipe;
     private ConfigClientService configClientService;
     private ExecutorService     executorService;
@@ -70,7 +65,7 @@ public class RowDataPipeDelegate {
             Future<PipeKey> future = null;
             Pipeline pipeline = configClientService.findPipeline(data.getRowBatch().getIdentity().getPipelineId());
             if (data.getFileBatch() != null && !CollectionUtils.isEmpty(data.getFileBatch().getFiles())) {
-                future = executorService.submit(new Callable<PipeKey>() {
+                /**future = executorService.submit(new Callable<PipeKey>() {
 
                     public PipeKey call() throws Exception {
                         try {
@@ -81,7 +76,8 @@ public class RowDataPipeDelegate {
                             MDC.remove(OtterConstants.splitPipelineLogFileKey);
                         }
                     }
-                });
+                });*/
+            	 throw new PipeException("fileBatch not suport in stand!");
             }
             try {
                 PipeChooseMode pipeChooseMode = pipeline.getParameters().getPipeChooseType();
@@ -89,13 +85,12 @@ public class RowDataPipeDelegate {
                     if (calculateSize(data) <= sizeThresold) {
                         keys.add(rowDataRpcPipe.put(data));
                     } else {
-                        keys.add(rowDataHttpPipe.put(data));
+                        //keys.add(rowDataHttpPipe.put(data));
+                    	throw new PipeException("pipeChooseMode autoMactic<http> not suport in stand!");
                     }
                 } else if (pipeChooseMode.isRpc()) {
                     keys.add(rowDataRpcPipe.put(data));
-                } else if (pipeChooseMode.isHttp()) {
-                    keys.add(rowDataHttpPipe.put(data));
-                } else {
+                }  else {
                     throw new PipeException("pipeChooseMode is error!" + pipeChooseMode);
                 }
 
@@ -123,26 +118,7 @@ public class RowDataPipeDelegate {
             if (key instanceof MemoryPipeKey) {
                 dbBatch = rowDataMemoryPipe.get((MemoryPipeKey) key);
                 return dbBatch;// 直接返回
-            } else if (key instanceof HttpPipeKey) {
-                if (key.getDataType().isDbBatch()) { // 区分一下数据下载
-                    dbBatch = rowDataHttpPipe.get((HttpPipeKey) key);
-                } else {
-                    future = executorService.submit(new Callable<File>() {
-
-                        public File call() throws Exception {
-                            try {
-                                HttpPipeKey pipeKey = (HttpPipeKey) key;
-                                MDC.put(OtterConstants.splitPipelineLogFileKey,
-                                        String.valueOf(pipeKey.getIdentity().getPipelineId()));
-                                return attachmentHttpPipe.get(pipeKey);
-                            } finally {
-                                MDC.remove(OtterConstants.splitPipelineLogFileKey);
-                            }
-
-                        }
-                    });
-                }
-            } else if (key instanceof RpcPipeKey) {
+            } else  if (key instanceof RpcPipeKey) {
                 dbBatch = rowDataRpcPipe.get((RpcPipeKey) key);
             } else {
                 throw new PipeException("unknow_PipeKey", key.toString());
@@ -191,9 +167,7 @@ public class RowDataPipeDelegate {
         this.rowDataMemoryPipe = rowDataMemoryPipe;
     }
 
-    public void setAttachmentHttpPipe(AttachmentHttpPipe attachmentHttpPipe) {
-        this.attachmentHttpPipe = attachmentHttpPipe;
-    }
+  
 
     public void setRowDataRpcPipe(RowDataRpcPipe rowDataRpcPipe) {
         this.rowDataRpcPipe = rowDataRpcPipe;
@@ -203,9 +177,6 @@ public class RowDataPipeDelegate {
         this.configClientService = configClientService;
     }
 
-    public void setRowDataHttpPipe(RowDataHttpPipe rowDataHttpPipe) {
-        this.rowDataHttpPipe = rowDataHttpPipe;
-    }
 
     public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;

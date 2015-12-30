@@ -15,38 +15,12 @@
 	<bean id="rowDataPipeDelegate" class="com.alibaba.otter.node.etl.common.pipe.impl.RowDataPipeDelegate" scope="singleton">
 	</bean>
 	
-	<!-- http服务 -->
-	<bean id="rowDataHttpPipe" class="com.alibaba.otter.node.etl.common.pipe.impl.http.RowDataHttpPipe"  scope="singleton" >
-		<property name="timeout" value="600000" /> <!-- 10分钟过期 -->
-		<property name="period" value="60000" /> <!-- 1分钟检查一次 -->
-		<property name="htdocsDir" value="${otter.htdocs.dir}" />
-		<property name="downloadDir" value="${otter.download.dir}" />
-		<property name="remoteUrlBuilder" ref="remoteUrlBuilder" />
-	</bean>
-	<bean id="attachmentHttpPipe" class="com.alibaba.otter.node.etl.common.pipe.impl.http.AttachmentHttpPipe"  scope="singleton">
-		<property name="timeout" value="600000" /> <!-- 10分钟过期 -->
-		<property name="period" value="60000" /> <!-- 1分钟检查一次 -->
-		<property name="htdocsDir" value="${otter.htdocs.dir}" />
-		<property name="downloadDir" value="${otter.download.dir}" />
-		<property name="remoteUrlBuilder" ref="remoteUrlBuilder" />
-	</bean>
 	
 	<!-- rpc服务 -->
 	<bean id="rowDataRpcPipe" class="com.alibaba.otter.node.etl.common.pipe.impl.rpc.RowDataRpcPipe"  scope="singleton">
 		<property name="timeout" value="600000" /> <!-- 10分钟过期,by zebin -->
 	</bean>
 	
-	<!-- jetty服务 -->
-	<bean id="jettyEmbedServer" class="com.alibaba.otter.node.etl.common.jetty.JettyEmbedServer" scope="singleton">
-		<property name="config" value="jetty/jetty.xml" />
-		<property name="htdocsDir" value="${otter.htdocs.dir}" />
-	</bean>
-	<bean id="remoteUrlBuilder" class="com.alibaba.otter.node.etl.common.pipe.impl.http.RemoteUrlBuilder" >
-		<property name="urlFormat" value="http://{0}:{1}/download/{2}" /><!-- 0为ip,1为port,2为下载路径  -->
-	</bean>
-	
-	<bean id="dataRetrieverFactory" class="com.alibaba.otter.node.etl.common.io.download.DataRetrieverFactory">
-	</bean>
 	
 	<!-- 池化配置 -->
 	<bean id="archiveBean" class="org.springframework.aop.framework.ProxyFactoryBean">

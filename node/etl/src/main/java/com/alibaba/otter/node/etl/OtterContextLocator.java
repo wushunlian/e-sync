@@ -62,6 +62,8 @@ public class OtterContextLocator {
     }
 
     public static OtterController getOtterController() {
+    	
+    	getApplicationContext().getBean("configRemoteServiceTarget");
         return (OtterController) getApplicationContext().getBean("otterController");
     }
 

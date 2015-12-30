@@ -8,7 +8,7 @@
 	<groupId>com.alibaba.otter</groupId>
 	<artifactId>e-sync</artifactId>
 	<packaging>pom</packaging>
-	<name>e-sync</name>
+	<name>otter standalone node</name>
 	<version>4.2.13-SNAPSHOT</version>
 	<inceptionYear>2011</inceptionYear>
 	<url>http://github.com/alibaba/otter</url>
@@ -45,7 +45,29 @@
 		</license>
 	</licenses>
 
-	<!--repositories>
+	
+
+	<properties>
+		<!--maven properties-->
+        <maven.test.skip>true</maven.test.skip>
+        <downloadSources>true</downloadSources>
+        <!-- compiler settings properties -->
+        <java_source_version>1.6</java_source_version>
+        <java_target_version>1.6</java_target_version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<file_encoding>UTF-8</file_encoding>
+		<spring-version>3.1.2.RELEASE</spring-version>
+		<jetty_verion>8.1.7.v20120910</jetty_verion>
+		<otter_canal_version>1.0.20</otter_canal_version>
+	</properties>
+
+	<modules>
+		<module>shared</module>
+		<module>node</module>
+		<module>standalone</module>
+	</modules>
+
+<repositories>
 		<repository>
 			<id>central</id>
 			<url>http://repo1.maven.org/maven2</url>
@@ -53,30 +75,31 @@
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+            			<id>nexus</id>
+            			<name>local private nexus</name>
+            			<url>http://maven.oschina.net/content/groups/public/</url>
+            			<releases>
+            				<enabled>true</enabled>
+            			</releases>
+            			<snapshots>
+            				<enabled>true</enabled>
+            			</snapshots>
+         </repository>   	
 		<repository>
 			<id>java.net</id>
-			<url>http://download.java.net/maven/2/</url>
+			<url>http://central.maven.org/maven2</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>jtester-maven</id>
-			<name>JTester</name>
-			<url>http://jtester.googlecode.com/svn/m2/</url>
-			<releases>
 				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
 		<repository>
 			<id>sonatype</id>
 			<name>sonatype</name>
@@ -99,27 +122,8 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories-->
+	</repositories>
 
-	<properties>
-		<!--maven properties-->
-        <maven.test.skip>true</maven.test.skip>
-        <downloadSources>true</downloadSources>
-        <!-- compiler settings properties -->
-        <java_source_version>1.6</java_source_version>
-        <java_target_version>1.6</java_target_version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<file_encoding>UTF-8</file_encoding>
-		<spring-version>3.1.2.RELEASE</spring-version>
-		<jetty_verion>8.1.7.v20120910</jetty_verion>
-		<otter_canal_version>1.0.20</otter_canal_version>
-	</properties>
-
-	<modules>
-		<module>shared</module>
-		<module>manager</module>
-		<module>node</module>
-	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -209,14 +213,7 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.35</version>
 			</dependency>
-            <!-- oracle -->
-			<dependency>
-				<groupId>com.oracle</groupId>
-				<artifactId>ojdbc14</artifactId>
-				<version>10.2.0.3.0</version>
-				<scope>system</scope>
-				<systemPath>${user.dir}/lib/ojdbc14-10.2.0.3.0.jar</systemPath>
-			</dependency>
+            
 			<!-- spring -->
 			<dependency>
                 <groupId>org.springframework</groupId>
@@ -284,19 +281,8 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.12</version>
             </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>3.0.1</version>
-                <scope>provided</scope>
-            </dependency>
 			<!-- test dependency -->
-			<dependency>
-				<groupId>org.jtester</groupId>
-				<artifactId>jtester</artifactId>
-				<version>1.1.8</version>
-				<scope>test</scope>
-			</dependency>
+			
             <dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -317,6 +303,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -329,6 +316,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				
 				<configuration>
 					<source>${java_source_version}</source>
 					<target>${java_target_version}</target>
@@ -353,24 +341,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				
 				<configuration>
 					<excludes>
 						<exclude>**/.svn/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<testNGArtifactName>org.testng:testng</testNGArtifactName>
-					<argLine>-javaagent:"${settings.localRepository}/mockit/jmockit/0.999.10/jmockit-0.999.10.jar"</argLine>
-					<useSystemClassLoader>true</useSystemClassLoader>
-					<suiteXmlFiles>
-					</suiteXmlFiles>
-				</configuration>
-			</plugin>
+			
 		</plugins>
 
 		<sourceDirectory>src/main/java</sourceDirectory>

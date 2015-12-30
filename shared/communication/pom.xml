@@ -18,27 +18,14 @@
 			<artifactId>shared.common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		
 		<!-- test dependency -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jtester</groupId>
-			<artifactId>jtester</artifactId>
-			<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 	          <groupId>org.jmockit</groupId>
 	          <artifactId>jmockit</artifactId>
@@ -48,7 +35,7 @@
          <dependency>
           <groupId>org.testng</groupId>
           <artifactId>testng</artifactId>
-           <version>6.1.1</version>
+           <version>6.9.10</version>
            <scope>test</scope>
           </dependency>  
 	</dependencies>
