@@ -51,20 +51,20 @@
 	</bean>
 	-->
 	
-	<bean id="configRemoteServiceTarget" class="com.alibaba.otter.manager.biz.remote.impl.ConfigRemoteServiceImpl"  scope="singleton" lazy-init="false">
+	<bean id="configRemoteService" class="com.alibaba.otter.manager.biz.remote.impl.ConfigRemoteServiceImpl"  scope="singleton" lazy-init="false">
 		<property name="communicationClient" ref="communicationClient" />
 	</bean>
 	
 	
-	<bean id="statsRemoteServiceTarget" class="com.alibaba.otter.manager.biz.remote.impl.StatsRemoteServiceImpl"  scope="singleton" lazy-init="false">
+	<bean id="statsRemoteService" class="com.alibaba.otter.manager.biz.remote.impl.StatsRemoteServiceImpl"  scope="singleton" lazy-init="false">
 	</bean>
 	
 	
-	<bean id="arbitrateRemoteServiceTarget" class="com.alibaba.otter.manager.biz.remote.impl.ArbitrateRemoteServiceImpl"  scope="singleton" lazy-init="false">
+	<bean id="arbitrateRemoteService" class="com.alibaba.otter.manager.biz.remote.impl.ArbitrateRemoteServiceImpl"  scope="singleton" lazy-init="false">
 	</bean>
 	
 	
-	<bean id="canalRemoteServiceTarget" class="com.alibaba.otter.manager.biz.remote.impl.CanalRemoteServiceImpl"  scope="singleton">
+	<bean id="canalRemoteService" class="com.alibaba.otter.manager.biz.remote.impl.CanalRemoteServiceImpl"  scope="singleton">
 	</bean>
 	
 	<!-- MBEAN -->

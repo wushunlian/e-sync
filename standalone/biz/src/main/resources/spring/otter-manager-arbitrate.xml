@@ -11,7 +11,7 @@
 
     <bean id="arbitrateConfigImpl" class="com.alibaba.otter.manager.biz.common.arbitrate.ArbitrateConfigImpl" depends-on="zookeeperClient" lazy-init="false" />
 
-    <bean id="deadNodeListener" class="com.alibaba.otter.manager.biz.common.arbitrate.DeadNodeListener"  depends-on="arbitrateConfigImpl" lazy-init="false">
+    <!--  bean id="deadNodeListener" class="com.alibaba.otter.manager.biz.common.arbitrate.DeadNodeListener"  depends-on="arbitrateConfigImpl" lazy-init="false">
     </bean>
-    
+    -->
 </beans>

@@ -32,7 +32,13 @@ public interface ArbitrateConfig {
      * 获取当前节点信息
      */
     public Node currentNode();
+    
+    /**
+     * 设置当前节点信息
+     */
 
+    public void setCurrentNode(Long nid);
+    
     /**
      * 根据nid查询Node信息
      */

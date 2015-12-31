@@ -49,6 +49,8 @@ public class ArbitrateConfigImpl implements ArbitrateConfig, InitializingBean {
     private ChannelService                     channelService;
     private NodeService                        nodeService;
     private RefreshMemoryMirror<Long, Node>    nodeCache;
+    
+    private Long nid=null;
 
     public ArbitrateConfigImpl(){
         // 注册自己到arbitrate模块
@@ -56,6 +58,8 @@ public class ArbitrateConfigImpl implements ArbitrateConfig, InitializingBean {
     }
 
     public Node currentNode() {
+    	if(nid!=null)
+    		return findNode(nid);
         return null;
     }
 
@@ -160,5 +164,10 @@ public class ArbitrateConfigImpl implements ArbitrateConfig, InitializingBean {
     public void setNodeService(NodeService nodeService) {
         this.nodeService = nodeService;
     }
+
+	@Override
+	public void setCurrentNode(Long nid) {
+		this.nid=nid;
+	}
 
 }

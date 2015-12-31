@@ -44,6 +44,7 @@ import com.alibaba.otter.node.etl.select.SelectTask;
 import com.alibaba.otter.node.etl.transform.TransformTask;
 import com.alibaba.otter.shared.arbitrate.ArbitrateEventService;
 import com.alibaba.otter.shared.arbitrate.ArbitrateManageService;
+import com.alibaba.otter.shared.arbitrate.impl.config.ArbitrateConfigRegistry;
 import com.alibaba.otter.shared.arbitrate.impl.manage.NodeSessionExpired;
 import com.alibaba.otter.shared.arbitrate.impl.zookeeper.ZooKeeperClient;
 import com.alibaba.otter.shared.common.model.config.ConfigException;
@@ -244,6 +245,7 @@ public class OtterController implements NodeTaskListener, OtterControllerMBean {
         }
         logger.info("INFO ## the nodeId = {}", nid);
         checkNidVaild(nid);
+        ArbitrateConfigRegistry.getConfig().setCurrentNode(Long.valueOf(nid));
         arbitrateManageService.nodeEvent().init(Long.valueOf(nid));
         // 添加session expired处理
         NodeSessionExpired sessionExpired = new NodeSessionExpired();

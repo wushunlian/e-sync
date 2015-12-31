@@ -11,7 +11,7 @@
            http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd"
     default-autowire="byName">
     
-	<bean id="channelService" class="com.alibaba.otter.manager.biz.config.channel.impl.ChannelServiceImpl" depends-on="arbitrateConfigImpl">
+	<bean id="channelService" class="com.alibaba.otter.manager.biz.config.channel.impl.ChannelServiceImpl" depends-on="arbitrateConfigImpl" scope="singleton">
 		<property name="pipelineService">
 			<ref bean="pipelineService" />
 		</property>

@@ -25,6 +25,9 @@ package com.alibaba.otter.node.etl;
 public interface OtterConstants {
 
     public String NID_NAME                      = "nid";
+    
+    
+    public String START_CHANNEL                 = "startChannel";
 
     /**
      * 在logback的配置文件中定义好的按照各个pipeline进行日志文件输出的键值.

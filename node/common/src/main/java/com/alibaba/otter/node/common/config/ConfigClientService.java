@@ -26,7 +26,7 @@ import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
  * 
  * @author jianghang
  */
-public interface ConfigClientService extends ArbitrateConfig {
+public interface ConfigClientService /**extends ArbitrateConfig */{
 
     /**
      * 查询当前节点的Node信息
