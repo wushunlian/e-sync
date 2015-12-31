@@ -18,17 +18,10 @@
 		</property>
 	</bean>
 	-->
-	
-	<bean id="canalCommunicationClientDelegate" class="com.alibaba.otter.shared.communication.core.impl.DefaultCommunicationClientImpl" init-method="initial" destroy-method="destory">
-		<property name="poolSize" value="${otter.communication.pool.size}" />
-		<property name="factory">
-			<bean class="com.alibaba.otter.shared.communication.core.impl.dubbo.DubboCommunicationConnectionFactory" />
-		</property>
-	</bean>
 	 
 	<bean id="canalCommmunicationClient" class="com.alibaba.otter.canal.extend.communication.CanalCommmunicationClient">
 		<property name="managerAddress" value="${otter.manager.address}" />
-		<property name="delegate" ref="canalCommunicationClientDelegate" />
+		<property name="delegate" ref="communicationClient" />
 	</bean>
 	
 	<bean id="canalConfigClient" class="com.alibaba.otter.canal.extend.communication.CanalConfigClient" >

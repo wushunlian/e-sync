@@ -21,21 +21,4 @@
 		<property name="timeout" value="600000" /> <!-- 10分钟过期,by zebin -->
 	</bean>
 	
-	
-	<!-- 池化配置 -->
-	<bean id="archiveBean" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="optimize" value="false"/>
-   		<property name="proxyTargetClass" value="true" />
-		<property name="targetSource" ref="archiveBeanTargetSource" />
-	</bean>
-	<bean id="archiveBeanTargetSource" class="org.springframework.aop.target.CommonsPoolTargetSource" >
-		<property name="minIdle" value="1" />
-		<property name="maxSize" value="-1" />
-		<property name="timeBetweenEvictionRunsMillis" value="60000" /><!-- 1分钟进行一次回收 -->
-		<property name="minEvictableIdleTimeMillis" value="600000" /><!-- 10分钟回收空闲的 -->
-		<property name="targetBeanName" value="archiveBeanTarget" />
-	</bean>
-	<bean id="archiveBeanTarget" class="com.alibaba.otter.node.etl.common.pipe.impl.http.archive.ArchiveBean" scope="prototype" >
-		<property name="poolSize" value="5" />
-	</bean>
 </beans>
